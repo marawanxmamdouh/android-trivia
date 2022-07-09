@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
+import com.example.android.navigation.databinding.FragmentTitleBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -18,13 +20,13 @@ private const val ARG_PARAM2 = "param2"
  */
 class TitleFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
+    private lateinit var binding: FragmentTitleBinding
     private var param2: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
+
             param2 = it.getString(ARG_PARAM2)
         }
     }
@@ -34,7 +36,11 @@ class TitleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_title, container, false)
+        binding = FragmentTitleBinding.inflate(layoutInflater)
+        binding.playButton.setOnClickListener {
+            it.findNavController().navigate(R.id.action_titleFragment_to_gameFragment)
+        }
+        return binding.root
     }
 
     companion object {
